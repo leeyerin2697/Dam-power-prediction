@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
+from sklearn.metrics import mean_absolute_error
+import numpy as np
 
 # ===== 1. Load Data =====
 df = pd.read_csv("한국수자원공사_수문현황정보_일별.csv", encoding='utf-8')
@@ -160,6 +162,17 @@ plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
 plt.show()
 
+print("\n====== Additional Metrics ======")
+
+print("Linear Regression MAE:", mean_absolute_error(y_test, pred_linear))
+print("Polynomial Regression MAE:", mean_absolute_error(y_test, pred_poly))
+print("Random Forest MAE:", mean_absolute_error(y_test, pred_rf))
+
+print("Linear Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_linear)))
+print("Polynomial Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_poly)))
+print("Random Forest RMSE:", np.sqrt(mean_squared_error(y_test, pred_rf)))
+
+
 # ===== 11. Feature Importance (Random Forest) =====
 importances = rf_model.feature_importances_
 
@@ -177,3 +190,26 @@ plt.ylabel("Variables")
 plt.title("Feature Importance - Random Forest")
 plt.gca().invert_yaxis()
 plt.show()
+
+
+print("\n====== Random Forest Hyperparameter Experiments ======")
+
+n_estimators_list = [10, 50, 100]
+max_depth_list = [5, 10, 20]
+
+for n in n_estimators_list:
+    for d in max_depth_list:
+        test_rf = RandomForestRegressor(
+            n_estimators=n,
+            max_depth=d,
+            random_state=42,
+            n_jobs=-1
+        )
+        test_rf.fit(X_train, y_train)
+        pred = test_rf.predict(X_test)
+
+        mse = mean_squared_error(y_test, pred)
+        rmse = np.sqrt(mse)
+        r2 = r2_score(y_test, pred)
+
+        print(f"n_estimators={n}, max_depth={d} -> RMSE: {rmse:.2f}, R2: {r2:.3f}")

@@ -5,8 +5,11 @@
   <img src="https://github.com/user-attachments/assets/2e80c22a-e65c-45a7-8227-05eb6fe44c35" width="45%" />
 </p>
 
-This project uses dam operation data from K-water to examine whether the key variables assumed in traditional hydropower theory—discharge (Q) and hydraulic head (H)—are indeed significant drivers of hydropower output in real-world dam operations. Traditional hydropower theory is based on the equation P = ρ · g · Q · H · η, which assumes idealized operating conditions. By applying machine learning models, this project investigates how strongly hydrological and operational variables influence hydropower discharge in practice, emphasizing interpretability and real-world applicability over pure predictive accuracy.
+This project uses dam operation data from K-water to predict turbine discharge (Q) used for hydropower generation. Turbine discharge is a critical variable in hydropower systems, as it directly determines power output according to the fundamental hydropower equation:
 
+P = ρ · g · Q · H · η
+
+Because discharge (Q) is a primary driver of power generation, accurately predicting turbine discharge enables indirect estimation of hydropower output and supports more efficient dam operation and energy planning. This project applies machine learning models to forecast turbine discharge from hydrological and operational variables, emphasizing practical value for real-world dam management rather than purely theoretical modeling.
 * * *
 
 ## Project Structure
@@ -131,15 +134,15 @@ Graphs will also be displayed for:
 
 ## Discussion
 
-The Random Forest model demonstrated substantially better performance than linear and polynomial models, indicating the limitations of simple linear approaches in explaining real-world dam operation data. The results confirm that while discharge (Q) is the dominant driver, reservoir conditions such as water level and storage volume also play a significant role in governing dam discharge behavior.
+The Random Forest model significantly outperformed linear and polynomial models, demonstrating that simple linear approaches are insufficient for predicting turbine discharge under real-world dam operating conditions. The results indicate that turbine discharge (Q) cannot be explained by a single factor, but is influenced by a combination of hydrological and operational variables, including water level and storage volume.
 
 Key observations:
 
-* Linear-based models were unable to adequately capture the complex structure of the data.
+* Linear regression models showed limited ability to represent the nonlinear behavior of dam operations.
 
-* Ensemble-based models, particularly Random Forest, achieved significantly lower prediction errors.
+* Ensemble-based methods, particularly Random Forest, achieved substantially lower prediction errors.
 
-These findings support the central objective of this project: to verify that dam discharge is influenced by multiple hydrological and operational variables, and that data-driven models are effective tools for capturing these complex relationships in practical hydropower system analysis.
+These findings are important because turbine discharge is a key variable in the hydropower equation (P = ρ · g · Q · H · η). By improving the prediction of Q, this study demonstrates the potential to indirectly estimate hydropower generation and provide useful insights for dam operation and energy management.
 * * *
 
 ## Notes

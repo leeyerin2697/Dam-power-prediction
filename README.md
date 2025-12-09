@@ -1,4 +1,5 @@
 # Dam Power Discharge Prediction🌊
+<p align="center">
 
 This project predicts hydropower discharge using dam operation data from Korea Water Resources Corporation (K-water).
 
@@ -116,6 +117,11 @@ Run the script from the project root directory.
 
 ## Output Example
 
+  <img src="https://github.com/user-attachments/assets/4810c494-dca5-453f-8c64-d209e32221e8" width="32%" />
+  <img src="https://github.com/user-attachments/assets/8887b0c7-5c91-41fb-87ff-981a1496db3d" width="32%" />
+  <img src="https://github.com/user-attachments/assets/67c5b010-7fad-4dbc-ad43-76c2c71bf70d" width="32%" />
+</p>
+
 When executed, the console will display:
 
 * Model evaluation results (MSE, RMSE, MAE, R²)
@@ -127,6 +133,15 @@ Graphs will also be displayed for:
 * Model comparison
 * Actual vs Predicted values
 * Feature importance
+
+## Results
+
+The Random Forest model showed significantly better performance compared to the linear and polynomial models.
+
+Key observations:
+- Linear models struggled to capture the complex relationships in the data.
+- Ensemble methods (Random Forest) achieved much lower prediction error.
+- This suggests that dam discharge behavior is influenced by non-linear interactions among hydrological variables.
 
 * * *
 

@@ -8,6 +8,9 @@ from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import mean_absolute_error
 import numpy as np
+import os
+os.makedirs("plots", exist_ok=True)
+
 
 # ===== 1. Load Data =====
 df = pd.read_csv("한국수자원공사_수문현황정보_일별.csv", encoding='utf-8')
@@ -43,14 +46,14 @@ data = df[features + [target, 'dam_name']].dropna()
 data = data[
     (data['water_level'] >= 0) &
     (data['storage_volume'] >= 0) &
-    (data['inflow_rate'] >= 0) &
-    (data['total_discharge'] >= 0) &
+    (data['inflow_rate'] > 0) &
+    (data['total_discharge'] > 0) &
     (data['rainfall'] >= 0) &
     (data['cumulative_rainfall'] >= 0) &
-    (data['storage_ratio'] >= 0)
+    (data['storage_ratio'] >= 0)&
+    (data['power_discharge'] > 0)
 ]
 
-print("Original dataset size:", len(data))
 
 # ===== 4. Sampling Large Dataset =====
 if len(data) > 50000:
@@ -125,7 +128,10 @@ plt.bar(models, Rmse_values)
 plt.title("Model Comparison (RMSE)")
 plt.xlabel("Model")
 plt.ylabel("RMSE")
+
+plt.savefig("plots/rmse_comparison.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close()
 
 # MSE Bar Chart
 models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
@@ -140,7 +146,10 @@ plt.bar(models, mse_values)
 plt.title("Model Comparison (MSE)")
 plt.xlabel("Model")
 plt.ylabel("MSE")
+
+plt.savefig("plots/mse_comparison.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close()
 
 # R2 Bar Chart
 r2_values = [
@@ -154,8 +163,10 @@ plt.bar(models, r2_values)
 plt.title("Model Comparison (R² Score)")
 plt.xlabel("Model")
 plt.ylabel("R²")
-plt.show()
 
+plt.savefig("plots/r2_comparison.png", dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
 
 # MAE Bar Chart
 models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
@@ -166,11 +177,14 @@ mae_values = [
 ]
 
 plt.figure()
-plt.bar(models, mse_values)
+plt.bar(models, mae_values)
 plt.title("Model Comparison (MAE)")
 plt.xlabel("Model")
 plt.ylabel("MAE")
+
+plt.savefig("plots/mae_comparison.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close()
 
 # Actual vs Predicted Plots
 plt.figure()
@@ -180,7 +194,10 @@ plt.plot([y_test.min(), y_test.max()],
 plt.title("Linear Regression: Actual vs Predicted")
 plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
+
+plt.savefig("plots/linear_actual_vs_pred.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close()
 
 plt.figure()
 plt.scatter(y_test, pred_poly)
@@ -189,7 +206,10 @@ plt.plot([y_test.min(), y_test.max()],
 plt.title("Polynomial Regression: Actual vs Predicted")
 plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
+
+plt.savefig("plots/polynomial_actual_vs_pred.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close()
 
 plt.figure()
 plt.scatter(y_test, pred_rf)
@@ -198,8 +218,10 @@ plt.plot([y_test.min(), y_test.max()],
 plt.title("Random Forest: Actual vs Predicted")
 plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
-plt.show()
 
+plt.savefig("plots/random_forest_actual_vs_pred.png", dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
 
 # ===== 11. Feature Importance (Random Forest) =====
 importances = rf_model.feature_importances_
@@ -217,8 +239,10 @@ plt.xlabel("Feature Importance")
 plt.ylabel("Variables")
 plt.title("Feature Importance - Random Forest")
 plt.gca().invert_yaxis()
-plt.show()
 
+plt.savefig("plots/feature_importance.png", dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
 
 print("====== Random Forest Hyperparameter Experiments ======")
 

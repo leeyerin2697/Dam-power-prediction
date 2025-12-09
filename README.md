@@ -1,5 +1,10 @@
 # Dam Power Discharge Prediction🌊
+
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/65c9d601-35ed-44b6-8c63-f126a3bea14a" width="45%" />
+  <img src="https://github.com/user-attachments/assets/df2f8e69-31a5-40f9-9148-1a80fadbd0f7" width="45%" />
+
+</p>
 
 This project predicts hydropower discharge using dam operation data from Korea Water Resources Corporation (K-water).
 
@@ -116,7 +121,7 @@ Run the script from the project root directory.
 * * *
 
 ## Output Example
-
+<p align="center">
   <img src="https://github.com/user-attachments/assets/4810c494-dca5-453f-8c64-d209e32221e8" width="32%" />
   <img src="https://github.com/user-attachments/assets/8887b0c7-5c91-41fb-87ff-981a1496db3d" width="32%" />
   <img src="https://github.com/user-attachments/assets/67c5b010-7fad-4dbc-ad43-76c2c71bf70d" width="32%" />

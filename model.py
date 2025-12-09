@@ -103,7 +103,29 @@ print("Linear Regression R2:", r2_score(y_test, pred_linear))
 print("Polynomial Regression R2:", r2_score(y_test, pred_poly))
 print("Random Forest R2:", r2_score(y_test, pred_rf))
 
+print("Linear Regression MAE:", mean_absolute_error(y_test, pred_linear))
+print("Polynomial Regression MAE:", mean_absolute_error(y_test, pred_poly))
+print("Random Forest MAE:", mean_absolute_error(y_test, pred_rf))
+
+print("Linear Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_linear)))
+print("Polynomial Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_poly)))
+print("Random Forest RMSE:", np.sqrt(mean_squared_error(y_test, pred_rf)))
+
 # ===== 10. Visualization =====
+# RMSE Bar Chart
+models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
+Rmse_values = [
+    np.sqrt(mean_squared_error(y_test, pred_linear)),
+    np.sqrt(mean_squared_error(y_test, pred_poly)),
+    np.sqrt(mean_squared_error(y_test, pred_rf))
+]
+
+plt.figure()
+plt.bar(models, Rmse_values)
+plt.title("Model Comparison (RMSE)")
+plt.xlabel("Model")
+plt.ylabel("RMSE")
+plt.show()
 
 # MSE Bar Chart
 models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
@@ -134,6 +156,22 @@ plt.xlabel("Model")
 plt.ylabel("R²")
 plt.show()
 
+
+# MAE Bar Chart
+models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
+mae_values = [
+    mean_absolute_error(y_test, pred_linear),
+    mean_absolute_error(y_test, pred_poly),
+    mean_absolute_error(y_test, pred_rf)
+]
+
+plt.figure()
+plt.bar(models, mse_values)
+plt.title("Model Comparison (MAE)")
+plt.xlabel("Model")
+plt.ylabel("MAE")
+plt.show()
+
 # Actual vs Predicted Plots
 plt.figure()
 plt.scatter(y_test, pred_linear)
@@ -161,16 +199,6 @@ plt.title("Random Forest: Actual vs Predicted")
 plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
 plt.show()
-
-print("\n====== Additional Metrics ======")
-
-print("Linear Regression MAE:", mean_absolute_error(y_test, pred_linear))
-print("Polynomial Regression MAE:", mean_absolute_error(y_test, pred_poly))
-print("Random Forest MAE:", mean_absolute_error(y_test, pred_rf))
-
-print("Linear Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_linear)))
-print("Polynomial Regression RMSE:", np.sqrt(mean_squared_error(y_test, pred_poly)))
-print("Random Forest RMSE:", np.sqrt(mean_squared_error(y_test, pred_rf)))
 
 
 # ===== 11. Feature Importance (Random Forest) =====

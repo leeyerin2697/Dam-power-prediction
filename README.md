@@ -1,9 +1,8 @@
 # Dam Power Discharge Prediction🌊
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/65c9d601-35ed-44b6-8c63-f126a3bea14a" width="45%" />
-  <img src="https://github.com/user-attachments/assets/df2f8e69-31a5-40f9-9148-1a80fadbd0f7" width="45%" />
-
+    <img src="https://github.com/user-attachments/assets/65c9d601-35ed-44b6-8c63-f126a3bea14a" width="45%" />
+  <img src="https://github.com/user-attachments/assets/2e80c22a-e65c-45a7-8227-05eb6fe44c35" width="45%" />
 </p>
 
 This project predicts hydropower discharge using dam operation data from Korea Water Resources Corporation (K-water).

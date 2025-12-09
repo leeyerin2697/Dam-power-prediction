@@ -5,16 +5,9 @@
   <img src="https://github.com/user-attachments/assets/2e80c22a-e65c-45a7-8227-05eb6fe44c35" width="45%" />
 </p>
 
-This project predicts hydropower discharge using dam operation data from Korea Water Resources Corporation (K-water).
-
-This project was created to explore how machine learning can support dam operation and hydropower management by predicting power discharge based on real hydrological and operational data.
-Hydropower generation is highly dependent on water level, storage conditions, inflow, and rainfall. However, traditional operation often relies on rule-based or manual decision-making. By applying data-driven models, this project aims to:
-
-* Improve understanding of the relationship between hydrological variables and power discharge
-* Support more efficient dam operation strategies
-* Demonstrate the practical use of machine learning in water resource engineering
-
-Rather than focusing only on model accuracy, this project emphasizes interpretability, comparison of different models, and real-world applicability.
+This project uses dam operation data from K-water to examine whether the commonly assumed linear relationship between water discharge and hydropower output holds in real-world conditions.
+Traditional hydropower theory is based on the equation P = ρ · g · Q · H · η, which implies P ∝ Q under constant head and efficiency.
+By applying machine learning models, this project explores nonlinear relationships between hydrological and operational variables, emphasizing interpretability and real-world applicability over pure predictive accuracy.
 
 * * *
 
@@ -138,14 +131,17 @@ Graphs will also be displayed for:
 * Actual vs Predicted values
 * Feature importance
 
-## Results
+## Discussion
 
-The Random Forest model showed significantly better performance compared to the linear and polynomial models.
+The Random Forest model demonstrated substantially better performance than linear and polynomial models, highlighting the limitations of the commonly assumed linear relationship in hydropower discharge modeling. The results confirm that while discharge plays a dominant role, reservoir conditions such as water level and storage volume exert significant influence on dam discharge behavior.
 
 Key observations:
-- Linear models struggled to capture the complex relationships in the data.
-- Ensemble methods (Random Forest) achieved much lower prediction error.
-- This suggests that dam discharge behavior is influenced by non-linear interactions among hydrological variables.
+
+* Linear models failed to adequately represent the complex structure of the data.
+
+* Ensemble-based models, particularly Random Forest, achieved significantly lower prediction errors.
+
+These findings support the central objective of this project: to demonstrate that dam discharge is governed by nonlinear interactions among hydrological and operational variables, and that purely linear assumptions are insufficient for realistic hydropower modeling.
 
 * * *
 

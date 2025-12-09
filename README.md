@@ -114,11 +114,35 @@ Run the script from the project root directory.
 * * *
 
 ## Output Example
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/4810c494-dca5-453f-8c64-d209e32221e8" width="32%" />
-  <img src="https://github.com/user-attachments/assets/8887b0c7-5c91-41fb-87ff-981a1496db3d" width="32%" />
-  <img src="https://github.com/user-attachments/assets/67c5b010-7fad-4dbc-ad43-76c2c71bf70d" width="32%" />
+
+
+## Prediction Results
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/1f42cf9d-1adb-4f11-86b3-056408ec8901" width="300"/>
+  <img src="https://github.com/user-attachments/assets/e86ac76d-b2c2-4ad2-b8ad-71c7e31b267f" width="300"/>
+  <img src="https://github.com/user-attachments/assets/12e67e52-3ff0-4fb5-b9ea-505ff1de8bae" width="300"/>
 </p>
+
+---
+
+## Model Performance
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/73bfe73e-2ac5-482d-b910-99f63fc7c4ab" width="300"/>
+  <img src="https://github.com/user-attachments/assets/a50060f5-636f-44df-bdcd-6bc1862fcfb5" width="300"/>
+  <img src="https://github.com/user-attachments/assets/1681e687-633e-4f47-a297-a1cc83fc1436" width="300"/>
+</p>
+
+---
+
+## Feature Importance
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/738a0ff5-832b-49b1-b5c5-13a1229206dd" width="350"/>
+</p>
+
+---
 
 When executed, the console will display:
 

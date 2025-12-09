@@ -192,7 +192,7 @@ plt.gca().invert_yaxis()
 plt.show()
 
 
-print("\n====== Random Forest Hyperparameter Experiments ======")
+print("====== Random Forest Hyperparameter Experiments ======")
 
 n_estimators_list = [10, 50, 100]
 max_depth_list = [5, 10, 20]
@@ -213,3 +213,4 @@ for n in n_estimators_list:
         r2 = r2_score(y_test, pred)
 
         print(f"n_estimators={n}, max_depth={d} -> RMSE: {rmse:.2f}, R2: {r2:.3f}")
+

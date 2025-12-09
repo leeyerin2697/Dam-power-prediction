@@ -14,7 +14,7 @@ Hydropower generation is highly dependent on water level, storage conditions, in
 * Support more efficient dam operation strategies
 * Demonstrate the practical use of machine learning in water resource engineering
 
-Rather than focusing only on model accuracy, this project emphasizes **interpretability, comparison of different models, and real-world applicability**.
+Rather than focusing only on model accuracy, this project emphasizes interpretability, comparison of different models, and real-world applicability.
 
 * * *
 

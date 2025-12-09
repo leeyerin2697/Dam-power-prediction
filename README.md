@@ -45,7 +45,7 @@ This project was developed and tested in the following environment:
     git clone https://github.com/leeyerin2697/Dam-power-prediction.git
     cd Dam-power-prediction
 
-### 2) (Optional) Create virtual environment
+### 2) Create virtual environment
 
     python -m venv venv
 
@@ -63,9 +63,6 @@ macOS / Linux:
 
     pip install -r requirements.txt
 
-If the file does not exist, install manually:
-
-    pip install pandas numpy matplotlib scikit-learn
 
 * * *
 
@@ -143,3 +140,4 @@ Graphs will also be displayed for:
 ## Need Help?
 
 If you would like improvements or additional features added to this project, feel free to ask!
+leeyerin2697@kentech.ac.kr

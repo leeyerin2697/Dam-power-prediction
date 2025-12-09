@@ -1,82 +1,113 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+from sklearn.pipeline import make_pipeline
 
-# ===== 1. 데이터 불러오기 =====
+# ===== 1. Load Data =====
 df = pd.read_csv("한국수자원공사_수문현황정보_일별.csv", encoding='utf-8')
 
-# ===== 2. 사용할 컬럼 =====
+# ===== 2. Feature and Target Columns =====
 features = [
-    '저수위', 
-    '저수량', 
-    '유입량', 
-    '총방류량', 
-    '강수량', 
-    '금년누가강우량', 
-    '저수율'
+    'water_level', 
+    'storage_volume', 
+    'inflow_rate', 
+    'total_discharge', 
+    'rainfall', 
+    'cumulative_rainfall', 
+    'storage_ratio'
 ]
-target = '발전방류량'
+target = 'power_discharge'
 
-# ===== 3. 컬럼 추출 + 결측치 제거 =====
-data = df[features + [target, '댐명']].dropna()
+# Rename columns (Korean → English)
+df = df.rename(columns={
+    '저수위': 'water_level',
+    '저수량': 'storage_volume',
+    '유입량': 'inflow_rate',
+    '총방류량': 'total_discharge',
+    '강수량': 'rainfall',
+    '금년누가강우량': 'cumulative_rainfall',
+    '저수율': 'storage_ratio',
+    '발전방류량': 'power_discharge',
+    '댐명': 'dam_name'
+})
+
+# ===== 3. Select Columns and Remove Missing / Invalid Values =====
+data = df[features + [target, 'dam_name']].dropna()
+
 data = data[
-    (data['저수위'] >= 0) &
-    (data['저수량'] >= 0) &
-    (data['유입량'] >= 0) &
-    (data['총방류량'] >= 0) &
-    (data['강수량'] >= 0) &
-    (data['금년누가강우량'] >= 0) &
-    (data['저수율'] >= 0)
+    (data['water_level'] >= 0) &
+    (data['storage_volume'] >= 0) &
+    (data['inflow_rate'] >= 0) &
+    (data['total_discharge'] >= 0) &
+    (data['rainfall'] >= 0) &
+    (data['cumulative_rainfall'] >= 0) &
+    (data['storage_ratio'] >= 0)
 ]
 
+print("Original dataset size:", len(data))
 
-print("원본 데이터 크기:", len(data))
-
-# ===== 4. 대용량 데이터 샘플링 (속도 개선 핵심) =====
+# ===== 4. Sampling Large Dataset =====
 if len(data) > 50000:
     data = data.sample(n=50000, random_state=42)
-    print("샘플링 후 데이터 크기:", len(data))
+    print("Sampled dataset size:", len(data))
 
-# ===== 5. 타입 최적화 =====
+# ===== 5. Define X and y =====
 X = data[features].astype('float32')
 y = data[target].astype('float32')
 
-# ===== 6. 데이터 분할 =====
+# ===== 6. Train/Test Split =====
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
+# ===== 7-0. Linear Regression (Baseline Model) =====
+linear_model = LinearRegression()
+linear_model.fit(X_train, y_train)
+pred_linear = linear_model.predict(X_test)
 
-# ===== 7. 모델 1: 선형 회귀 =====
-lr = LinearRegression()
-lr.fit(X_train, y_train)
-pred_lr = lr.predict(X_test)
+# ===== 7. Polynomial Regression (Nonlinear Model) =====
+poly_model = make_pipeline(
+    StandardScaler(),
+    PolynomialFeatures(degree=2),
+    LinearRegression()
+)
 
-# ===== 8. 모델 2: Random Forest (경량화 버전) =====
-rf = RandomForestRegressor(
+poly_model.fit(X_train, y_train)
+pred_poly = poly_model.predict(X_test)
+
+# ===== 8. Random Forest Model =====
+rf_model = RandomForestRegressor(
     n_estimators=30,
     max_depth=10,
     random_state=42,
     n_jobs=-1
 )
-rf.fit(X_train, y_train)
-pred_rf = rf.predict(X_test)
 
-# ===== 9. 성능 비교 =====
-print("\n====== 모델 성능 비교 ======")
-print("Linear Regression MSE:", mean_squared_error(y_test, pred_lr))
+rf_model.fit(X_train, y_train)
+pred_rf = rf_model.predict(X_test)
+
+# ===== 9. Model Performance Comparison =====
+print("\n====== Model Performance Comparison ======")
+
+print("Linear Regression MSE:", mean_squared_error(y_test, pred_linear))
+print("Polynomial Regression MSE:", mean_squared_error(y_test, pred_poly))
 print("Random Forest MSE:", mean_squared_error(y_test, pred_rf))
 
-print("Linear Regression R2:", r2_score(y_test, pred_lr))
+print("Linear Regression R2:", r2_score(y_test, pred_linear))
+print("Polynomial Regression R2:", r2_score(y_test, pred_poly))
 print("Random Forest R2:", r2_score(y_test, pred_rf))
 
-import matplotlib.pyplot as plt
+# ===== 10. Visualization =====
 
-models = ['Linear Regression', 'Random Forest']
+# MSE Bar Chart
+models = ['Linear Regression', 'Polynomial Regression', 'Random Forest']
 mse_values = [
-    mean_squared_error(y_test, pred_lr),
+    mean_squared_error(y_test, pred_linear),
+    mean_squared_error(y_test, pred_poly),
     mean_squared_error(y_test, pred_rf)
 ]
 
@@ -87,9 +118,10 @@ plt.xlabel("Model")
 plt.ylabel("MSE")
 plt.show()
 
-
+# R2 Bar Chart
 r2_values = [
-    r2_score(y_test, pred_lr),
+    r2_score(y_test, pred_linear),
+    r2_score(y_test, pred_poly),
     r2_score(y_test, pred_rf)
 ]
 
@@ -100,10 +132,10 @@ plt.xlabel("Model")
 plt.ylabel("R²")
 plt.show()
 
-
+# Actual vs Predicted Plots
 plt.figure()
-plt.scatter(y_test, pred_lr)
-plt.plot([y_test.min(), y_test.max()], 
+plt.scatter(y_test, pred_linear)
+plt.plot([y_test.min(), y_test.max()],
          [y_test.min(), y_test.max()])
 plt.title("Linear Regression: Actual vs Predicted")
 plt.xlabel("Actual Value")
@@ -111,31 +143,35 @@ plt.ylabel("Predicted Value")
 plt.show()
 
 plt.figure()
+plt.scatter(y_test, pred_poly)
+plt.plot([y_test.min(), y_test.max()],
+         [y_test.min(), y_test.max()])
+plt.title("Polynomial Regression: Actual vs Predicted")
+plt.xlabel("Actual Value")
+plt.ylabel("Predicted Value")
+plt.show()
+
+plt.figure()
 plt.scatter(y_test, pred_rf)
-plt.plot([y_test.min(), y_test.max()], 
+plt.plot([y_test.min(), y_test.max()],
          [y_test.min(), y_test.max()])
 plt.title("Random Forest: Actual vs Predicted")
 plt.xlabel("Actual Value")
 plt.ylabel("Predicted Value")
 plt.show()
 
-import matplotlib.pyplot as plt
-import pandas as pd
+# ===== 11. Feature Importance (Random Forest) =====
+importances = rf_model.feature_importances_
 
-# 변수 중요도 추출
-importances = rf.feature_importances_
-
-# 데이터프레임으로 정리
-feat_importance = pd.DataFrame({
+feature_importance = pd.DataFrame({
     'Feature': features,
     'Importance': importances
 }).sort_values(by='Importance', ascending=False)
 
-print(feat_importance)
-
-
+print("\n=== Feature Importance (Random Forest) ===")
+print(feature_importance)
 plt.figure()
-plt.barh(feat_importance['Feature'], feat_importance['Importance'])
+plt.barh(feature_importance['Feature'], feature_importance['Importance'])
 plt.xlabel("Feature Importance")
 plt.ylabel("Variables")
 plt.title("Feature Importance - Random Forest")

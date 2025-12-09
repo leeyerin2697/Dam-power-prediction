@@ -48,3 +48,96 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
+
+# ===== 7. 모델 1: 선형 회귀 =====
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+pred_lr = lr.predict(X_test)
+
+# ===== 8. 모델 2: Random Forest (경량화 버전) =====
+rf = RandomForestRegressor(
+    n_estimators=30,
+    max_depth=10,
+    random_state=42,
+    n_jobs=-1
+)
+rf.fit(X_train, y_train)
+pred_rf = rf.predict(X_test)
+
+# ===== 9. 성능 비교 =====
+print("\n====== 모델 성능 비교 ======")
+print("Linear Regression MSE:", mean_squared_error(y_test, pred_lr))
+print("Random Forest MSE:", mean_squared_error(y_test, pred_rf))
+
+print("Linear Regression R2:", r2_score(y_test, pred_lr))
+print("Random Forest R2:", r2_score(y_test, pred_rf))
+
+import matplotlib.pyplot as plt
+
+models = ['Linear Regression', 'Random Forest']
+mse_values = [
+    mean_squared_error(y_test, pred_lr),
+    mean_squared_error(y_test, pred_rf)
+]
+
+plt.figure()
+plt.bar(models, mse_values)
+plt.title("Model Comparison (MSE)")
+plt.xlabel("Model")
+plt.ylabel("MSE")
+plt.show()
+
+
+r2_values = [
+    r2_score(y_test, pred_lr),
+    r2_score(y_test, pred_rf)
+]
+
+plt.figure()
+plt.bar(models, r2_values)
+plt.title("Model Comparison (R² Score)")
+plt.xlabel("Model")
+plt.ylabel("R²")
+plt.show()
+
+
+plt.figure()
+plt.scatter(y_test, pred_lr)
+plt.plot([y_test.min(), y_test.max()], 
+         [y_test.min(), y_test.max()])
+plt.title("Linear Regression: Actual vs Predicted")
+plt.xlabel("Actual Value")
+plt.ylabel("Predicted Value")
+plt.show()
+
+plt.figure()
+plt.scatter(y_test, pred_rf)
+plt.plot([y_test.min(), y_test.max()], 
+         [y_test.min(), y_test.max()])
+plt.title("Random Forest: Actual vs Predicted")
+plt.xlabel("Actual Value")
+plt.ylabel("Predicted Value")
+plt.show()
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 변수 중요도 추출
+importances = rf.feature_importances_
+
+# 데이터프레임으로 정리
+feat_importance = pd.DataFrame({
+    'Feature': features,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+print(feat_importance)
+
+
+plt.figure()
+plt.barh(feat_importance['Feature'], feat_importance['Importance'])
+plt.xlabel("Feature Importance")
+plt.ylabel("Variables")
+plt.title("Feature Importance - Random Forest")
+plt.gca().invert_yaxis()
+plt.show()

@@ -110,6 +110,7 @@ Run the script from the project root directory.
    * Random Forest
 6. Evaluate models using MSE, RMSE, MAE, and R²
 7. Visualize results using matplotlib
+8. Hyperparameter experiment(random forest)
 
 * * *
 

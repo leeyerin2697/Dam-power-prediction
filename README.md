@@ -4,6 +4,7 @@
     <img src="https://github.com/user-attachments/assets/65c9d601-35ed-44b6-8c63-f126a3bea14a" width="45%" />
   <img src="https://github.com/user-attachments/assets/2e80c22a-e65c-45a7-8227-05eb6fe44c35" width="45%" />
 </p>
+Demonstration Video: https://youtu.be/LBqvcdxHdpE
 
 This project uses dam operation data from K-water to predict turbine discharge (Q) used for hydropower generation. Turbine discharge is a critical variable in hydropower systems, as it directly determines power output according to the fundamental hydropower equation:
 

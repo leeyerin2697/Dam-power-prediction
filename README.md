@@ -121,9 +121,9 @@ Run the script from the project root directory.
 ## Prediction Results
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/1f42cf9d-1adb-4f11-86b3-056408ec8901" width="300"/>
-  <img src="https://github.com/user-attachments/assets/e86ac76d-b2c2-4ad2-b8ad-71c7e31b267f" width="300"/>
-  <img src="https://github.com/user-attachments/assets/12e67e52-3ff0-4fb5-b9ea-505ff1de8bae" width="300"/>
+  <img src="https://github.com/user-attachments/assets/1f42cf9d-1adb-4f11-86b3-056408ec8901" width="250"/>
+  <img src="https://github.com/user-attachments/assets/e86ac76d-b2c2-4ad2-b8ad-71c7e31b267f" width="250"/>
+  <img src="https://github.com/user-attachments/assets/12e67e52-3ff0-4fb5-b9ea-505ff1de8bae" width="250"/>
 </p>
 
 ---
@@ -131,9 +131,9 @@ Run the script from the project root directory.
 ## Model Performance
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/73bfe73e-2ac5-482d-b910-99f63fc7c4ab" width="300"/>
-  <img src="https://github.com/user-attachments/assets/a50060f5-636f-44df-bdcd-6bc1862fcfb5" width="300"/>
-  <img src="https://github.com/user-attachments/assets/1681e687-633e-4f47-a297-a1cc83fc1436" width="300"/>
+  <img src="https://github.com/user-attachments/assets/a50060f5-636f-44df-bdcd-6bc1862fcfb5" width="250"/>
+  <img src="https://github.com/user-attachments/assets/73bfe73e-2ac5-482d-b910-99f63fc7c4ab" width="250"/>
+  <img src="https://github.com/user-attachments/assets/1681e687-633e-4f47-a297-a1cc83fc1436" width="250"/>
 </p>
 
 ---
